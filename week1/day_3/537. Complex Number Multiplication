@@ -1,0 +1,44 @@
+class Solution {
+public:
+    string complexNumberMultiply(string num1, string num2) {
+        int i = 0;
+        int j = 0;
+        string a = "";
+        string b = "";
+        string c = "";
+        string d = "";
+        while(i < num1.length()){
+            while(num1[i] != '+'){
+                a = a + num1[i];
+                i++;
+            }
+            i++; // to skip '+'
+            while(num1[i] != 'i'){
+                b = b + num1[i];
+                i++;
+            }
+            i++; // to skip 'i'
+        }
+        while(j < num2.length()){
+            while(num2[j] != '+'){
+                c = c + num2[j];
+                j++;
+            }
+            j++; // to skip '+'
+            while(num2[j] != 'i'){
+                d = d + num2[j];
+                j++;
+            }
+            j++; // to skip 'i'
+        }
+        int a1 = stoi(a);
+        int b1 = stoi(b);
+        int a2 = stoi(c);
+        int b2 = stoi(d);
+
+        int real = (a1*a2) - (b1*b2);
+        int imaginary = (a1*b2 + b1*a2);
+
+        return to_string(real) + "+" + to_string(imaginary) + "i";
+    }
+};
