@@ -1,0 +1,33 @@
+class Solution {
+public:
+    ListNode* partition(ListNode* head, int x) {
+        ListNode* less_start = nullptr;
+        ListNode* less_end = nullptr;
+        ListNode* great_start = nullptr;
+        ListNode* great_end = nullptr;
+        for (ListNode* curr = head; curr != nullptr; curr = curr->next){
+            int value = curr->val;
+            if(value < x){
+                if(less_start == nullptr)
+                    less_start = less_end = curr;
+                else{
+                    less_end->next = curr;
+                    less_end = less_end->next;
+                }
+            }
+            else{
+                if(great_start == nullptr)
+                    great_start = great_end = curr;
+                else{
+                    great_end->next = curr;
+                    great_end = great_end->next;
+                }
+            }
+        }
+        if(less_start == nullptr || great_start == nullptr)
+            return head;
+        less_end->next = great_start;
+        great_end->next = nullptr;
+        return less_start;
+    }
+};
