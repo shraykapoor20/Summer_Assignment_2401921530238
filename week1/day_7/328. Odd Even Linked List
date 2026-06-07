@@ -1,0 +1,37 @@
+class Solution {
+public:
+    ListNode* oddEvenList(ListNode* head) {
+        if(head == nullptr || head->next == nullptr)
+            return head;
+
+        ListNode * odd_start = nullptr;
+        ListNode * odd_end = nullptr;
+        ListNode * even_start = nullptr;
+        ListNode * even_end = nullptr;
+
+        int pos = 1;
+        for(ListNode * curr = head; curr != nullptr; curr = curr->next){
+            if(pos % 2 == 0){
+                if(even_start == nullptr)
+                    even_start = even_end = curr;
+                else{
+                    even_end->next = curr;
+                    even_end = even_end->next;
+                }
+                pos++;
+            }
+            else{
+                if(odd_start == nullptr)
+                    odd_start = odd_end = curr;
+                else{
+                    odd_end->next = curr;
+                    odd_end = odd_end->next;
+                }
+                pos++;
+            }
+        }
+        odd_end->next = even_start;
+        even_end->next = nullptr;
+        return odd_start;
+    }
+};
