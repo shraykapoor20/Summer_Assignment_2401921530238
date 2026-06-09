@@ -1,0 +1,47 @@
+class Solution {
+public:
+    bool areSame(int CP[], int CS[]){
+        for(int i = 0; i < 26; i++){
+            if(CS[i] != CP[i])
+                return false;
+        }
+        return true;
+    }
+
+    vector<int> findAnagrams(string s, string p) {
+        vector<int> res;
+
+        // Safety check
+        if(s.length() < p.length())
+            return res;
+
+        int CP[26] = {0};
+        int CS[26] = {0};
+
+        // Step 1: Fill first window
+        for(int i = 0; i < p.length(); i++){
+            CS[s[i] - 'a']++;
+            CP[p[i] - 'a']++;
+        }
+
+        // Step 2: Slide the window
+        for(int i = p.length(); i < s.length(); i++){
+
+            // Check current window
+            if(areSame(CP, CS))
+                res.push_back(i - p.length());
+
+            // Add new character
+            CS[s[i] - 'a']++;
+
+            // Remove old character
+            CS[s[i - p.length()] - 'a']--;
+        }
+
+        // Step 3: Check last window
+        if(areSame(CS, CP))
+            res.push_back(s.length() - p.length());
+
+        return res;
+    }
+};
